@@ -22,6 +22,11 @@ class WeatherFragmentDetail : Fragment() {
 
     private var _binding: FragmentWeatherDetailBinding? = null
     private val binding get() = _binding!!
+    private var city: City = Weather().city // default city
+
+    private val viewModel: WeatherDTOModel by lazy {
+        ViewModelProvider(this)[WeatherDTOModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,23 +40,37 @@ class WeatherFragmentDetail : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.getParcelable<Weather>(BUNDLE_EXTRA)?.let { weather ->
-            weather.city.also { city ->
-                with(binding) {
-                    cityName.text = city.name
-                    cityCoordinates.text = String.format(
-                        getString(R.string.city_coordinates),
-                        city.lat.toString(),
-                        city.lon.toString()
-                    )
-                    temperatureValue.text = weather.temperature.toString()
-                    feelsLikeValue.text = weather.feelsLike.toString()
+            city = weather.city
+        }
+
+        viewModel.getLiveDataDTO().observe(viewLifecycleOwner) { appState -> renderData(appState) }
+        viewModel.getWeather(city)
+    }
+
+    private fun renderData(appState: AppState) = when (appState) {
+        is AppState.SuccessFromServer -> {
+            with(binding) {
+                cityName.text = city.name
+                appState.weatherDTO.fact.run {
+                    temperatureValue.text = temp.toString()
+                    feelsLikeValue.text = feelsLike.toString()
                 }
             }
         }
+        is AppState.Error -> {
+            Snackbar
+                .make(binding.root, "Error", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Reload") { viewModel.getWeather(city) }
+                .show()
+        }
+        else -> {}
+    }.also {
+        if (appState == AppState.Loading) binding.loadingLayout.visibility = View.VISIBLE
+        else binding.loadingLayout.visibility = View.GONE
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-}

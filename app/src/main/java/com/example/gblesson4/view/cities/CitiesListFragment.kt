@@ -36,11 +36,7 @@ class CitiesListFragment : Fragment() {
                     .add(R.id.container, WeatherFragmentDetail.newInstance(
                         // а здесь как раз apply, по тем же причинам, что и run
                         Bundle().apply {
-                            putParcelable(
-                                WeatherFragmentDetail.BUNDLE_EXTRA,
-                                weather
-                            )
-                        }
+                            putParcelable(WeatherFragmentDetail.BUNDLE_EXTRA, weather)}
                     ))
                     .addToBackStack("")
                     .commitAllowingStateLoss()
@@ -59,9 +55,7 @@ class CitiesListFragment : Fragment() {
         actionText: String,
         action: (View) -> Unit,
         length: Int = Snackbar.LENGTH_INDEFINITE
-    ) {
-        Snackbar.make(this, text, length).setAction(actionText, action).show()
-    }
+    ) { Snackbar.make(this, text, length).setAction(actionText, action).show() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -83,21 +77,20 @@ class CitiesListFragment : Fragment() {
 
     private fun renderData(appState: AppState) = when (appState) {
         is AppState.Success -> {
-            binding.citiesFragmentLoadingLayout.visibility = View.GONE
             adapter.setWeather(appState.weatherData)
         }
-
-        is AppState.Loading -> binding.citiesFragmentLoadingLayout.visibility = View.VISIBLE
-
         is AppState.Error -> {
             with(binding) {
-                citiesFragmentLoadingLayout.visibility = View.GONE
                 citiesFragmentRootLayout.showSnackBar(
                     getString(R.string.error),
                     getString(R.string.reload),
                     { viewModel.getWeather(location) })
             }
         }
+        else -> {}
+    }.also {
+        if (appState == AppState.Loading) binding.citiesFragmentLoadingLayout.visibility = View.VISIBLE
+        else binding.citiesFragmentLoadingLayout.visibility = View.GONE
     }
 
     private fun changeDataSet() {
