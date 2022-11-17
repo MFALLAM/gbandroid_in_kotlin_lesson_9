@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gblesson4.R
 import com.example.gblesson4.model.Weather
+
 
 class CitiesFragmentAdapter(
     private var onItemViewClickListener: CitiesListFragment.OnItemViewClickListener?
@@ -15,10 +17,15 @@ class CitiesFragmentAdapter(
 
     private var weatherData: List<Weather> = listOf()
 
-    @SuppressLint("NotifyDataSetChanged")
+    //@SuppressLint("NotifyDataSetChanged")
     fun setWeather(data: List<Weather>) {
+
+        val cityDiffUtil = CityListDiffUtilCallback(weatherData, data)
+        val result = DiffUtil.calculateDiff(cityDiffUtil)
+
         weatherData = data
-        notifyDataSetChanged()
+        result.dispatchUpdatesTo(this)
+        //notifyDataSetChanged() // FIXME: исправить обновление на notifyItemChanged()
     }
 
     override fun onCreateViewHolder(
@@ -48,4 +55,3 @@ class CitiesFragmentAdapter(
         }
     }
 }
-

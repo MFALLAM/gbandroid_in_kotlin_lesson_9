@@ -5,18 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.gblesson4.R
 import com.example.gblesson4.databinding.FragmentWeatherDetailBinding
 import com.example.gblesson4.model.Weather
+import com.example.gblesson4.viewmodel.AppState
+import com.example.gblesson4.viewmodel.WeatherDTOModel
+import com.google.android.material.snackbar.Snackbar
 
-
-class WeatherFragmentDetail : Fragment() {
+class WeatherFragmentDetails : Fragment() {
 
     companion object {
         const val BUNDLE_EXTRA = "weather"
 
-        fun newInstance(bundle: Bundle): WeatherFragmentDetail {
-            return WeatherFragmentDetail().apply { arguments = bundle }
+        fun newInstance(bundle: Bundle): WeatherFragmentDetails {
+            return WeatherFragmentDetails().apply { arguments = bundle }
         }
     }
 
@@ -74,3 +77,4 @@ class WeatherFragmentDetail : Fragment() {
         super.onDestroy()
         _binding = null
     }
+}
