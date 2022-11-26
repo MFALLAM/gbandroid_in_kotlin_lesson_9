@@ -19,9 +19,6 @@ fun getLines(reader: BufferedReader): String {
     return reader.lines().collect(Collectors.joining("\n"))
 }
 
-// Information:
-// Все что ниже - честно украдено из интернета.
-
 fun isInternetAvailable(context: Context): Boolean {
     val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

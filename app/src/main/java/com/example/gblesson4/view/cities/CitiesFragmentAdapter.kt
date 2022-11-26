@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gblesson4.R
 import com.example.gblesson4.model.Weather
 
-
 class CitiesFragmentAdapter(
     private var onItemViewClickListener: CitiesListFragment.OnItemViewClickListener?
 ) :
@@ -20,7 +19,7 @@ class CitiesFragmentAdapter(
     //@SuppressLint("NotifyDataSetChanged")
     fun setWeather(data: List<Weather>) {
 
-        val cityDiffUtil = CityListDiffUtilCallback(weatherData, data)
+        val cityDiffUtil = CitiesListDiffUtilCallback(weatherData, data)
         val result = DiffUtil.calculateDiff(cityDiffUtil)
 
         weatherData = data

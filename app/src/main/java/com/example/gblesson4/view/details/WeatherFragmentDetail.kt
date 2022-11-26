@@ -50,13 +50,15 @@ class WeatherFragmentDetails : Fragment() {
         viewModel.getWeather(city)
     }
 
+    @Suppress("IMPLICIT_CAST_TO_ANY")
     private fun renderData(appState: AppState) = when (appState) {
         is AppState.SuccessFromServer -> {
             with(binding) {
                 cityName.text = city.name
-                appState.weatherDTO.fact.run {
-                    temperatureValue.text = temp.toString()
-                    feelsLikeValue.text = feelsLike.toString()
+                appState.weatherDTO.fact.let {
+                    temperatureValue.text = it.temp.toString()
+                    feelsLikeValue.text = it.feelsLike.toString()
+                    weatherIcon.loadSVG("$YANDEX_WEATHER_ICON${it.icon}.svg")
                 }
             }
         }
@@ -70,6 +72,24 @@ class WeatherFragmentDetails : Fragment() {
     }.also {
         if (appState == AppState.Loading) binding.loadingLayout.visibility = View.VISIBLE
         else binding.loadingLayout.visibility = View.GONE
+    }
+
+    private fun AppCompatImageView.loadSVG(url: String) {
+        val imageLoader = ImageLoader.Builder(context)
+            .components {
+                add(SvgDecoder.Factory())
+            }
+            .build()
+
+        val request = ImageRequest.Builder(this.context)
+            .placeholder(R.drawable.loading)
+            .crossfade(true)
+            .crossfade(500)
+            .data(url)
+            .target(this)
+            .build()
+
+        imageLoader.enqueue(request)
     }
 
 
