@@ -1,9 +1,5 @@
 package com.example.gblesson4.model
 
-import com.example.gblesson4.model.apikey.WeatherDTO
-import java.io.BufferedReader
-import java.util.stream.Collectors
-
 fun interface Repository {
 
     fun getWeather(hasInternet: Boolean, location: Location): List<Weather>

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gblesson4.R
 import com.example.gblesson4.model.Weather
 
+
 class CitiesFragmentAdapter(
     private var onItemViewClickListener: CitiesListFragment.OnItemViewClickListener?
 ) :

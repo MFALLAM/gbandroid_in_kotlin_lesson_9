@@ -1,4 +1,4 @@
-package com.example.gblesson4.model.apikey
+package com.example.gblesson4.model.dto
 
 
 import com.google.gson.annotations.SerializedName

@@ -5,9 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gblesson4.model.City
-import com.example.gblesson4.model.RemoteRepository
-import com.example.gblesson4.model.RemoteRepositoryImpl
-import com.example.gblesson4.model.apikey.WeatherDTO
+import com.example.gblesson4.model.dto.WeatherDTO
 import com.example.gblesson4.utils.getLines
 import java.io.BufferedReader
 import java.io.InputStreamReader
