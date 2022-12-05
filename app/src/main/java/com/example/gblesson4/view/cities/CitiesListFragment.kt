@@ -19,6 +19,7 @@ import com.example.gblesson4.utils.SP_REGION_SETTINGS
 import com.example.gblesson4.view.details.WeatherFragmentDetails
 
 import com.example.gblesson4.viewmodel.AppState
+import com.example.gblesson4.viewmodel.AppStateLocal
 import com.example.gblesson4.viewmodel.WeatherViewModelList
 
 import com.google.android.material.snackbar.Snackbar

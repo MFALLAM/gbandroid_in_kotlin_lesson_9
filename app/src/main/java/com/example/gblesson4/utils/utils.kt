@@ -3,6 +3,8 @@ package com.example.gblesson4.utils
 import com.example.gblesson4.model.City
 import com.example.gblesson4.model.Weather
 import com.example.gblesson4.model.dto.WeatherDTO
+import com.example.gblesson4.model.getAddress
+import com.example.gblesson4.model.room.WeatherEntity
 
 
 class Utils {

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.gblesson4.R
@@ -12,6 +13,7 @@ import com.example.gblesson4.model.Weather
 import com.example.gblesson4.viewmodel.AppState
 import com.example.gblesson4.viewmodel.WeatherDTOModel
 import com.google.android.material.snackbar.Snackbar
+
 
 class WeatherFragmentDetails : Fragment() {
 
